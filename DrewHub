@@ -5,9 +5,9 @@ local Window = Rayfield:CreateWindow({
    LoadingTitle = "Reel a Brainrot",
    LoadingSubtitle = "by DREW",
    ConfigurationSaving = {
-      Enabled = false,
-      FolderName = nil, -- Create a custom folder for your hub/game
-      FileName = "Example Hub"
+      Enabled = true,
+      FolderName = DrewHub, -- Create a custom folder for your hub/game
+      FileName = "DrewHub"
    },
    Discord = {
       Enabled = true,
@@ -20,7 +20,7 @@ local Window = Rayfield:CreateWindow({
       Subtitle = "DrewHub",
       Note = "GetKey https://discord.gg/T7VfBB8GCa",
       FileName = "pastebin", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
-      SaveKey = false, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      SaveKey = True, -- The user's key will be saved, but if you change the key, they will be unable to use your script
       GrabKeyFromSite = true, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
       Key = {"drewnagwapo"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
    }
@@ -31,7 +31,7 @@ local MainSection = MainTab:CreateSection("Main")
 
 Rayfield:Notify({
    Title = "You executed the script",
-   Content = "ang pogi ko",
+   Content = "Thankyou!",
    Duration = 5,
    Image = 13047715178,
    Actions = { -- Notification Buttons
@@ -97,8 +97,10 @@ local AutoCollectMoneyTab = Window:CreateTab("CollectMoney", 4483362458) -- Titl
 local Section = MainTab:CreateSection("⚠️ Caution!!!: Click At The Sametime The AutoEquipBest and AutoSell - Drew")
 
 local Button = AutoCollectMoneyTab:CreateButton({
-   Name = "Soon!",
+   Name = "Soon!!",
    Callback = function()
    -- The function that takes place when the button is pressed
    end,
 })
+
+Window.ModifyTheme('Ocean')
