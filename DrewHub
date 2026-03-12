@@ -60,7 +60,7 @@ local Button = MainTab:CreateButton({
 local Button = MainTab:CreateButton({
    Name = "AutoEquipBest",
    Callback = function()
-   while wait(43) do
+   while wait(45) do
 		local args = {
 			"EquipBest",
 			"String",
@@ -74,7 +74,7 @@ local Button = MainTab:CreateButton({
 local Button = MainTab:CreateButton({
    Name = "AutoSell",
    Callback = function()
-   while wait(44) do
+   while wait(45) do
 		local args = {
 			{
 				Rare = true,
