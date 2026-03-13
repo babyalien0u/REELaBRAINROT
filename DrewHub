@@ -77,7 +77,7 @@ local running = false
 local MAX_BACKPACK = 100
 
 local Toggle = MainTab:CreateToggle({
-    Name = "AutoFishEquipSell",
+    Name = "AutoEquip&Sell",
     CurrentValue = false,
     Flag = "Toggle_AutoFishEquipSell",
     Callback = function(Value)
