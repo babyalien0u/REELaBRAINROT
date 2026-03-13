@@ -33,7 +33,7 @@ KeyTab:CreateButton({
    Name = "Copy Link To Get Key",
    Callback = function()
       if setclipboard then
-         setclipboard("https://discord.gg/T7VfBB8GCa")
+         setclipboard("https://discord.gg/4Wa93BNuTu")
       end
 
       Rayfield:Notify({
