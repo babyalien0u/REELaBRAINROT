@@ -97,9 +97,18 @@ local AutoCollectMoneyTab = Window:CreateTab("CollectMoney", 4483362458) -- Titl
 local Section = MainTab:CreateSection("⚠️ Caution!!!: Click At The Sametime The AutoEquipBest and AutoSell - Drew")
 
 local Button = AutoCollectMoneyTab:CreateButton({
-   Name = "Soon!!",
+   Name = "CollectMoney Every 30 Sec",
    Callback = function()
-   -- The function that takes place when the button is pressed
+   local remote = game:GetService("ReplicatedStorage"):WaitForChild("RemoteHandler"):WaitForChild("Collect")
+
+while true do
+	for i = 1, 30 do
+		remote:FireServer("Plot"..i)
+		task.wait(0.2) -- delay to avoid skipping
+	end
+	
+	task.wait(30) -- wait before collecting again
+end
    end,
 })
 
