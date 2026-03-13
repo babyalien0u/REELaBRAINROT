@@ -14,7 +14,7 @@ local Window = Rayfield:CreateWindow({
       Invite = "https://discord.gg/T7VfBB8GCa", -- The Discord invite code, do not include discord.gg/. E.g. https://discord.gg/T7VfBB8GCa would be ABCD
       RememberJoins = false -- Set this to false to make them join the discord every time they load it up
    },
-   KeySystem = true, -- Set this to true to use our key system
+   KeySystem = false, -- Set this to true to use our key system
    KeySettings = {
       Title = "Key System",
       Subtitle = "DrewHub",
@@ -44,17 +44,33 @@ Rayfield:Notify({
 },
 })
 
-local Button = MainTab:CreateButton({
-   Name = "AutoFish",
-   Callback = function()
-   while wait() do
-		local args = {
-			"Caught",
-			2
-		}
-		game:GetService("ReplicatedStorage"):WaitForChild("RemoteHandler"):WaitForChild("Fishing"):FireServer(unpack(args))
-      end
-   end,
+local running = false
+
+local Toggle = MainTab:CreateToggle({
+    Name = "AutoFish",
+    CurrentValue = false,
+    Flag = "Toggle1",
+    Callback = function(Value)
+        running = Value
+
+        if running then
+            task.spawn(function()
+                while running do
+                    local args = {
+                        "Caught",
+                        1.002666345730168
+                    }
+
+                    game:GetService("ReplicatedStorage")
+                        :WaitForChild("RemoteHandler")
+                        :WaitForChild("Fishing")
+                        :FireServer(unpack(args))
+
+                    task.wait(0.5) -- adjust delay if needed
+                end
+            end)
+        end
+    end,
 })
 
 local Button = MainTab:CreateButton({
@@ -92,11 +108,11 @@ local Button = MainTab:CreateButton({
    end,
 })
 
-local AutoCollectMoneyTab = Window:CreateTab("CollectMoney", 4483362458) -- Title, Image
+local OtherTab = Window:CreateTab("Other", 4483362458) -- Title, Image
 
 local Section = MainTab:CreateSection("⚠️ Caution!!!: Click At The Sametime The AutoEquipBest and AutoSell - Drew")
 
-local Button = AutoCollectMoneyTab:CreateButton({
+local Button = OtherTab:CreateButton({
    Name = "CollectMoney Every 30 Sec",
    Callback = function()
    local remote = game:GetService("ReplicatedStorage"):WaitForChild("RemoteHandler"):WaitForChild("Collect")
@@ -113,3 +129,117 @@ end
 })
 
 Window.ModifyTheme('Ocean')
+
+local Section = OtherTab:CreateSection("Power")
+
+local running = false
+
+local Toggle = OtherTab:CreateToggle({
+   Name = "power1",
+   CurrentValue = false,
+   Flag = "Toggle1",
+   Callback = function(Value)
+      running = Value
+
+      if running then
+         task.spawn(function()
+            while running do
+               local args = {
+                  "power1"
+               }
+
+               game:GetService("ReplicatedStorage")
+                  :WaitForChild("RemoteHandler")
+                  :WaitForChild("Upgrade")
+                  :FireServer(unpack(args))
+
+               task.wait(0.5)
+            end
+         end)
+      end
+   end,
+})
+
+local running = false
+
+local Toggle = OtherTab:CreateToggle({
+    Name = "Power5",
+    CurrentValue = false,
+    Flag = "Toggle1",
+    Callback = function(Value)
+        running = Value
+
+        if running then
+            task.spawn(function()
+                while running do
+                    local args = {
+                        "power5"
+                    }
+
+                    game:GetService("ReplicatedStorage")
+                        :WaitForChild("RemoteHandler")
+                        :WaitForChild("Upgrade")
+                        :FireServer(unpack(args))
+
+                    task.wait(0.5) -- adjust delay if needed
+                end
+            end)
+        end
+    end,
+})
+
+local running = false
+
+local Toggle = OtherTab:CreateToggle({
+    Name = "Power10",
+    CurrentValue = false,
+    Flag = "Toggle1",
+    Callback = function(Value)
+        running = Value
+
+        if running then
+            task.spawn(function()
+                while running do
+                    local args = {
+                        "power10"
+                    }
+
+                    game:GetService("ReplicatedStorage")
+                        :WaitForChild("RemoteHandler")
+                        :WaitForChild("Upgrade")
+                        :FireServer(unpack(args))
+
+                    task.wait(0.5) -- adjust delay if needed
+                end
+            end)
+        end
+    end,
+})
+
+local running = false
+
+local Toggle = OtherTab:CreateToggle({
+    Name = "UpgradeCarry1",
+    CurrentValue = false,
+    Flag = "Toggle1",
+    Callback = function(Value)
+        running = Value
+
+        if running then
+            task.spawn(function()
+                while running do
+                    local args = {
+                        "carry1"
+                    }
+
+                    game:GetService("ReplicatedStorage")
+                        :WaitForChild("RemoteHandler")
+                        :WaitForChild("Upgrade")
+                        :FireServer(unpack(args))
+
+                    task.wait(0.5) -- adjust delay if needed
+                end
+            end)
+        end
+    end,
+})
