@@ -58,7 +58,7 @@ local Toggle = MainTab:CreateToggle({
                 while running do
                     local args = {
                         "Caught",
-                        1.002666345730168
+                        2
                     }
 
                     game:GetService("ReplicatedStorage")
@@ -73,44 +73,92 @@ local Toggle = MainTab:CreateToggle({
     end,
 })
 
-local Button = MainTab:CreateButton({
-   Name = "AutoEquipBest",
-   Callback = function()
-   while wait(45) do
-		local args = {
-			"EquipBest",
-			"String",
-			"String"
-		}
-		game:GetService("ReplicatedStorage"):WaitForChild("RemoteHandler"):WaitForChild("Plot"):FireServer(unpack(args))
-	   end
-   end,
-})
+local running = false
+local MAX_BACKPACK = 100
 
-local Button = MainTab:CreateButton({
-   Name = "AutoSell",
-   Callback = function()
-   while wait(45) do
-		local args = {
-			{
-				Rare = true,
-				Legendary = true,
-				Secret = true,
-				Godly = true,
-				Epic = true,
-				Mythic = true,
-				Uncommon = true,
-				Divine = true
-			}
-		}
-		game:GetService("ReplicatedStorage"):WaitForChild("RemoteHandler"):WaitForChild("SellMultiple"):FireServer(unpack(args))
-	   end
-   end,
+local Toggle = MainTab:CreateToggle({
+    Name = "AutoFishEquipSell",
+    CurrentValue = false,
+    Flag = "Toggle_AutoFishEquipSell",
+    Callback = function(Value)
+        running = Value
+
+        if running then
+            task.spawn(function()
+                local player = game.Players.LocalPlayer
+                local backpack = player:WaitForChild("Backpack")
+
+                while running do
+                    -- Count backpack + equipped tools
+                    local character = player.Character or player.CharacterAdded:Wait()
+                    local equipped = 0
+
+                    for _,v in pairs(character:GetChildren()) do
+                        if v:IsA("Tool") then
+                            equipped += 1
+                        end
+                    end
+
+                    local total = #backpack:GetChildren() + equipped
+
+                    if total < MAX_BACKPACK then
+                        -- Only fish if backpack is NOT full
+                        local fishArgs = {
+                            "Caught",
+                            2
+                        }
+
+                        game:GetService("ReplicatedStorage")
+                            :WaitForChild("RemoteHandler")
+                            :WaitForChild("Fishing")
+                            :FireServer(unpack(fishArgs))
+
+                        task.wait(0.1)
+
+                    else
+                        -- Backpack FULL → EquipBest
+                        local equipArgs = {
+                            "EquipBest",
+                            "String",
+                            "String"
+                        }
+
+                        game:GetService("ReplicatedStorage")
+                            :WaitForChild("RemoteHandler")
+                            :WaitForChild("Plot")
+                            :FireServer(unpack(equipArgs))
+
+                        -- Then SellMultiple
+                        local sellArgs = {
+                            {
+                                Rare = true,
+                                Legendary = true,
+                                Secret = true,
+                                Godly = true,
+                                Epic = true,
+                                Mythic = true,
+                                Uncommon = true,
+                                Divine = true
+                            }
+                        }
+
+                        game:GetService("ReplicatedStorage")
+                            :WaitForChild("RemoteHandler")
+                            :WaitForChild("SellMultiple")
+                            :FireServer(unpack(sellArgs))
+
+                        -- Wait before starting the process again
+                        task.wait(35)
+                    end
+                end
+            end)
+        end
+    end,
 })
 
 local OtherTab = Window:CreateTab("Other", 4483362458) -- Title, Image
 
-local Section = MainTab:CreateSection("⚠️ Caution!!!: Click At The Sametime The AutoEquipBest and AutoSell - Drew")
+local Section = MainTab:CreateSection("Enjoy!")
 
 local Button = OtherTab:CreateButton({
    Name = "CollectMoney Every 30 Sec",
@@ -243,3 +291,32 @@ local Toggle = OtherTab:CreateToggle({
         end
     end,
 })
+
+local running = false
+
+local Toggle = OtherTab:CreateToggle({
+    Name = "Power10",
+    CurrentValue = false,
+    Flag = "Toggle1",
+    Callback = function(Value)
+        running = Value
+
+        if running then
+            task.spawn(function()
+                while running do
+                    local args = {
+                        "power10"
+                    }
+
+                    game:GetService("ReplicatedStorage")
+                        :WaitForChild("RemoteHandler")
+                        :WaitForChild("Upgrade")
+                        :FireServer(unpack(args))
+
+                    task.wait(0.5) -- adjust delay if needed
+                end
+            end)
+        end
+    end,
+})
+
