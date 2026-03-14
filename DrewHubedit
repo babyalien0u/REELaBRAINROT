@@ -356,3 +356,19 @@ local Toggle = MainTab:CreateToggle({
 
    end,
 })
+
+local VirtualUser = game:GetService("VirtualUser")
+local Players = game:GetService("Players")
+
+local player = Players.LocalPlayer
+
+player.Idled:Connect(function()
+    VirtualUser:CaptureController()
+    VirtualUser:ClickButton2(Vector2.new())
+end)
+
+while true do
+    task.wait(60)
+    VirtualUser:CaptureController()
+    VirtualUser:ClickButton2(Vector2.new())
+end
